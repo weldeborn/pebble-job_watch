@@ -4,6 +4,7 @@
   "longName": "job_watch",
   "companyName": "MakeAwesomeHappen",
   "versionCode": 1,
+  "capabilities": [ "configurable" ],
   "versionLabel": "1.0",
   "watchapp": {
     "watchface": false
