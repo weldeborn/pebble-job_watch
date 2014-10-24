@@ -3,22 +3,19 @@
 static Window *window;
 static TextLayer *text_layer;
 
-static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
-  text_layer_set_text(text_layer, "Select");
-}
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-  text_layer_set_text(text_layer, "Up");
+  text_layer_set_text(text_layer, "Up (Show project menu)");
 }
 
-static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-  text_layer_set_text(text_layer, "Down");
+static void long_up_click_handler(ClickRecognizerRef recognizer, void *context) {
+  text_layer_set_text(text_layer, "Long Up (Show history)");
 }
+
 
 static void click_config_provider(void *context) {
-  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
   window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
-  window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
+  window_long_click_subscribe(BUTTON_ID_UP, 500, long_up_click_handler, NULL);
 }
 
 static void window_load(Window *window) {
