@@ -15,4 +15,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
   // webview closed
   var options = JSON.parse(decodeURIComponent(e.response));
   console.log("Options = " + JSON.stringify(options));
+  Pebble.sendAppMessage({CFG_PROJECT_1:options["project_1"], 
+	  					 CFG_PROJECT_2:options["project_2"], 
+	  					 CFG_PROJECT_3:options["project_3"]});
 });
