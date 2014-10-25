@@ -10,7 +10,11 @@
     "watchface": false
   },
   "appKeys": {
-    "dummy": 0
+    "CFG_PROJECT_1"  : 0,
+    "CFG_PROJECT_2"  : 1,
+    "CFG_PROJECT_3"  : 2,
+    "CFG_VIB_7_WORK" : 3,
+    "CFG_VIB_7_HOME" : 4
   },
   "resources": {
     "media": []
