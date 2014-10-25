@@ -10,11 +10,12 @@
     "watchface": false
   },
   "appKeys": {
-    "CFG_PROJECT_1"  : 0,
-    "CFG_PROJECT_2"  : 1,
-    "CFG_PROJECT_3"  : 2,
-    "CFG_VIB_7_WORK" : 3,
-    "CFG_VIB_7_HOME" : 4
+    "CMD_CFG_PROJECT_1"  		 : 0,
+    "CMD_CFG_PROJECT_2"  		 : 1,
+    "CMD_CFG_PROJECT_3"  		 : 2,
+    "CMD_CFG_VIB_7_WORK" 		 : 3,
+    "CMD_CFG_VIB_7_HOME" 	     : 4,
+    "CMD_SEND_CONFIG_PARAMS" 	 : 5
   },
   "resources": {
     "media": [

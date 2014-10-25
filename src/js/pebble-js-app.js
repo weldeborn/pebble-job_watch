@@ -1,4 +1,5 @@
 var initialized = false;
+var config_url ="http://weldeborn.esy.es/configurable.php?v=0.1";
 
 Pebble.addEventListener("ready", function() {
   console.log("ready called!");
@@ -7,18 +8,44 @@ Pebble.addEventListener("ready", function() {
 
 Pebble.addEventListener("showConfiguration", function() {
   console.log("showing configuration");
-  Pebble.openURL('http://weldeborn.esy.es/configurable.php?project_1=qwe');
+  var url = config_url;
+  for(var i = 0, x = window.localStorage.length; i < x; i++) {
+	var key = window.localStorage.key(i);
+	var val = window.localStorage.getItem(key);
+	
+	if(val != null) {
+		url += "&" + encodeURIComponent(key) + "=" + encodeURIComponent(val);
+	}
+  }
+
+  console.log(url);
+  
+  Pebble.openURL(url);
+  
 });
 
-Pebble.addEventListener("webviewclosed", function(e) {
-  console.log("configuration closed");
-  // webview closed
-  var options = JSON.parse(decodeURIComponent(e.response));
-  console.log("Options = " + JSON.stringify(options));
-  Pebble.sendAppMessage({CFG_PROJECT_1:options["project_1"], 
-	  					 CFG_PROJECT_2:options["project_2"], 
-	  					 CFG_PROJECT_3:options["project_3"],
-	  					 CFG_VIB_7_WORK:options["bool_vibrate_7min_from_work"],
-	  					 CFG_VIB_7_HOME:options["bool_vibrate_7min_from_home"],
-	  					 });
+
+Pebble.addEventListener("webviewclosed", function(_event) {
+	if(_event.response) {
+		var values = JSON.parse(decodeURIComponent(_event.response));
+		console.log(JSON.stringify(values));
+		for(key in values) {
+			window.localStorage.setItem(key, values[key]);
+		}
+		
+		Pebble.sendAppMessage(values,
+			function(_event) {
+				console.log("Successfully sent options to Pebble");
+			},
+			function(_event) {
+				console.log("Failed to send options to Pebble.\nError: " + _event.error.message);
+			}
+		);
+	}
 });
+
+Pebble.addEventListener("appmessage",
+        function(e) {
+          console.log(e.payload.CMD_CFG_PROJECT_1);
+          console.log("message received in javascript!");
+        });

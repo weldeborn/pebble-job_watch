@@ -8,7 +8,7 @@
 #ifndef INC_STORAGE_H_
 #define INC_STORAGE_H_
 
-void STORE_setProjectName_1(const char name[20]);
+void STORE_setProjectName_1(const char name[]);
 char* STORE_getProjectName_1(void);
 
 void STORE_setProjectName_2(const char name[20]);

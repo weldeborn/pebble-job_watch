@@ -17,24 +17,24 @@
       <div data-role="content">
 
         <div data-role="fieldcontain">
-          <label for="project_1">Project 1:</label>
-          <textarea cols="40" rows="8" name="project_1" id="project_1"><?php echo $_GET['project_1']; ?></textarea>
+          <label for="CMD_CFG_PROJECT_1">Project 1:</label>
+          <textarea cols="40" rows="8" name="CMD_CFG_PROJECT_1" id="CMD_CFG_PROJECT_1"><?php echo $_GET["CMD_CFG_PROJECT_1"]; ?></textarea>
 
-          <label for="project_2">Project 2:</label>
-          <textarea cols="40" rows="8" name="project_2" id="project_2"><?php echo $_GET['project_2']; ?></textarea>
+          <label for="CMD_CFG_PROJECT_2">Project 2:</label>
+          <textarea cols="40" rows="8" name="CMD_CFG_PROJECT_2" id="CMD_CFG_PROJECT_2"><?php echo $_GET["CMD_CFG_PROJECT_2"]; ?></textarea>
 
-          <label for="project_3">Project 3:</label>
-          <textarea cols="40" rows="8" name="project_3" id="project_3"><?php echo $_GET['project_3']; ?></textarea>
+          <label for="CMD_CFG_PROJECT_3">Project 3:</label>
+          <textarea cols="40" rows="8" name="CMD_CFG_PROJECT_3" id="CMD_CFG_PROJECT_3"><?php echo $_GET["CMD_CFG_PROJECT_3"]; ?></textarea>
         </div>
 
         <div data-role="fieldcontain">
           <fieldset data-role="controlgroup">
             <legend>Vibration alerts:</legend>
-            <input type="checkbox" name="bool_vibrate_7min_from_work" id="bool_vibrate_7min_from_work" class="custom" />
-            <label for="bool_vibrate_7min_from_work">Vibrate 7min before bus/tram departure (From work, 16:00-18:00 )</label>
+            <input type="checkbox" name="CMD_CFG_VIB_7_WORK" id="CMD_CFG_VIB_7_WORK" class="custom" />
+            <label for="CMD_CFG_VIB_7_WORK">Vibrate 7min before bus/tram departure (From work, 16:00-18:00 )</label>
 
-            <input type="checkbox" name="bool_vibrate_7min_from_home" id="bool_vibrate_7min_from_home" class="custom" />
-            <label for="bool_vibrate_7min_from_home">Vibrate 7min before bus/tram departure (From home, 07:00-09:00)</label>
+            <input type="checkbox" name="CMD_CFG_VIB_7_HOME" id="CMD_CFG_VIB_7_HOME" class="custom" />
+            <label for="CMD_CFG_VIB_7_HOME">Vibrate 7min before bus/tram departure (From home, 07:00-09:00)</label>
           </fieldset>
           </div>
         </div>
@@ -49,6 +49,10 @@
       </div>
     </div>
     <script>
+      
+        $('#CMD_CFG_VIB_7_WORK').prop('checked', <?php echo $_GET["CMD_CFG_VIB_7_WORK"]; ?>);
+        $('#CMD_CFG_VIB_7_HOME').prop('checked', <?php echo $_GET["CMD_CFG_VIB_7_HOME"]; ?>);
+
 
       function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -64,16 +68,16 @@
 
       function saveOptions() {
         var options = {
-          'project_1': $("#project_1").val(),
-          'project_2': $("#project_2").val(),
-          'project_3': $("#project_3").val(),
-          'bool_vibrate_7min_from_work': $("#bool_vibrate_7min_from_work").is(':checked'),
-          'bool_vibrate_7min_from_home': $("#bool_vibrate_7min_from_home").is(':checked'),
+          'CMD_CFG_PROJECT_1': $("#CMD_CFG_PROJECT_1").val(),
+          'CMD_CFG_PROJECT_2': $("#CMD_CFG_PROJECT_2").val(),
+          'CMD_CFG_PROJECT_3': $("#CMD_CFG_PROJECT_3").val(),
+          'CMD_CFG_VIB_7_WORK': $("#CMD_CFG_VIB_7_WORK").is(':checked'),
+          'CMD_CFG_VIB_7_HOME': $("#CMD_CFG_VIB_7_HOME").is(':checked'),
         }
         return options;
       }
 
-      $().ready(function() {
+      $().ready(function() {        
         $("#b-cancel").click(function() {
           console.log("Cancel");
           document.location = "pebblejs://close";

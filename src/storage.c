@@ -8,14 +8,14 @@
 #define  PERSIST_INT_ACTIVE_PROJECT (uint32_t) 6
 
 
-void STORE_setProjectName_1(char name[20]){
+void STORE_setProjectName_1(const char name[]){
   persist_write_string(PERSIST_PROJECT_NAME_1, name);
 }
 
 char* STORE_getProjectName_1()
 {
   char *retValue = malloc(sizeof(char)*20);
-  persist_read_string(PERSIST_PROJECT_NAME_1, retValue, sizeof(retValue));
+  persist_read_string(PERSIST_PROJECT_NAME_1, retValue, sizeof(char)*20);
   return retValue;
 }
 
@@ -26,7 +26,7 @@ void STORE_setProjectName_2(char name[20]){
 char* STORE_getProjectName_2()
 {
   char *retValue = malloc(sizeof(char)*20);
-  persist_read_string(PERSIST_PROJECT_NAME_2, retValue, sizeof(retValue));
+  persist_read_string(PERSIST_PROJECT_NAME_2, retValue, sizeof(char)*20);
   return retValue;
 }
 
@@ -37,7 +37,7 @@ void STORE_setProjectName_3(char name[20]){
 char* STORE_getProjectName_3()
 {
   char *retValue = malloc(sizeof(char)*20);
-  persist_read_string(PERSIST_PROJECT_NAME_3, retValue, sizeof(retValue));
+  persist_read_string(PERSIST_PROJECT_NAME_3, retValue, sizeof(char)*20);
   return retValue;
 }
 
