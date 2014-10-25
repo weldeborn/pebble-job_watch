@@ -17,6 +17,12 @@
     "CFG_VIB_7_HOME" : 4
   },
   "resources": {
-    "media": []
+    "media": [
+               {
+	        	 "type": "png",
+	        	 "name": "IMG_BUS",
+	        	 "file": "img/img_bus.png"
+	      	   }
+	      	 ]
   }
 }

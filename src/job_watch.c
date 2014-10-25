@@ -7,12 +7,15 @@ enum DataFromPhoneKey {
   CFG_PROJECT_1 = 0x0,         // TUPLE_CSTRING
   CFG_PROJECT_2 = 0x1,         // TUPLE_CSTRING
   CFG_PROJECT_3 = 0x2,         // TUPLE_CSTRING
+  CFG_VIB_7_WORK = 0x3,         // TUPLE_CSTRING
+  CFG_VIB_7_HOME = 0x4,         // TUPLE_CSTRING
 };
 
 
 static Window *window;
 static TextLayer *text_layer;
 static Layer *timeline_layer;
+static Layer *transport_layer;
 
 static AppSync sync;
 static uint8_t sync_buffer[64];
@@ -41,6 +44,12 @@ static void timeline_layer_update_callback(Layer *me, GContext *ctx) {
   TOOL_voDrawTimeline(ctx, 4*60, STORE_getProjectName_1());
 }
 
+static void transport_layer_update_callback(Layer *me, GContext *ctx) {
+  graphics_context_set_fill_color(ctx, GColorWhite);
+  graphics_context_set_stroke_color(ctx, GColorWhite);
+  TOOL_voDrawTransport(ctx);
+}
+
 static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tuple, const Tuple* old_tuple, void* context) {
   switch (key) {
     case CFG_PROJECT_1:
@@ -55,6 +64,14 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
     case CFG_PROJECT_3:
       STORE_setProjectName_3(new_tuple->value->cstring);
       break;
+
+    case CFG_VIB_7_WORK:
+      STORE_voSetVibrate7MinBeforeWork((bool) new_tuple->value->uint8);
+      break;
+
+    case CFG_VIB_7_HOME:
+      STORE_voSetVibrate7MinBeforeHome((bool) new_tuple->value->uint8);
+      break;
   }
 }
 
@@ -65,6 +82,10 @@ static void window_load(Window *window) {
   timeline_layer = layer_create(GRect(0, 0, bounds.size.w, 50));
   layer_set_update_proc(timeline_layer, timeline_layer_update_callback);
   layer_add_child(window_layer, timeline_layer);
+
+  transport_layer = layer_create(GRect(0, 168-50, bounds.size.w, 50));
+  layer_set_update_proc(transport_layer, transport_layer_update_callback);
+  layer_add_child(window_layer, transport_layer);
 
   text_layer = text_layer_create(GRect(0,72,bounds.size.w, 20));
   TOOL_editTextLayer(text_layer, "Press any key", GColorWhite, GTextAlignmentCenter);
@@ -83,6 +104,8 @@ static void window_load(Window *window) {
 static void window_unload(Window *window) {
   app_sync_deinit(&sync);
   text_layer_destroy(text_layer);
+  layer_destroy(timeline_layer);
+  layer_destroy(transport_layer);
 }
 
 static void init(void) {

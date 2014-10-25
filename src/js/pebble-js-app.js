@@ -7,7 +7,7 @@ Pebble.addEventListener("ready", function() {
 
 Pebble.addEventListener("showConfiguration", function() {
   console.log("showing configuration");
-  Pebble.openURL('http://weldeborn.esy.es/configurable.html');
+  Pebble.openURL('http://weldeborn.esy.es/configurable.php?project_1=qwe');
 });
 
 Pebble.addEventListener("webviewclosed", function(e) {

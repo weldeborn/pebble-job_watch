@@ -32,3 +32,14 @@ void TOOL_voDrawTimeline(GContext *ctx, int16_t minutes , char project[])
                           GRect(X_OFFSET, Y_OFFSET + Y_SIZE, X_SIZE, 16),
                           GTextOverflowModeFill, GTextAlignmentCenter, NULL);
 }
+
+
+void TOOL_voDrawTransport(GContext *ctx)
+{
+  int8_t const X_OFFSET = 12;
+  GBitmap* img_bus = gbitmap_create_with_resource(RESOURCE_ID_IMG_BUS);
+  graphics_draw_bitmap_in_rect(ctx, img_bus, GRect(X_OFFSET,20,45,30));
+  graphics_draw_text(ctx, "758", fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD),
+      GRect(X_OFFSET,0,45,20),
+      GTextOverflowModeFill, GTextAlignmentCenter, NULL);
+}

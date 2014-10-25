@@ -18,13 +18,13 @@
 
         <div data-role="fieldcontain">
           <label for="project_1">Project 1:</label>
-          <textarea cols="40" rows="8" name="project_1" id="project_1"><?php echo $_GET['project_1']; ?></textarea>
+          <textarea cols="40" rows="8" name="project_1" id="project_1"></textarea>
 
           <label for="project_2">Project 2:</label>
-          <textarea cols="40" rows="8" name="project_2" id="project_2"><?php echo $_GET['project_2']; ?></textarea>
+          <textarea cols="40" rows="8" name="project_2" id="project_2"></textarea>
 
           <label for="project_3">Project 3:</label>
-          <textarea cols="40" rows="8" name="project_3" id="project_3"><?php echo $_GET['project_3']; ?></textarea>
+          <textarea cols="40" rows="8" name="project_3" id="project_3"></textarea>
         </div>
 
         <div data-role="fieldcontain">
