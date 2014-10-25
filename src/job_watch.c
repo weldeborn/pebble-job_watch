@@ -3,7 +3,10 @@
 #include <job_watch.h>
 
 static Window *window;
+
 static TextLayer *text_layer;
+
+static Layer *timeline_layer;
 
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -20,13 +23,22 @@ static void click_config_provider(void *context) {
   window_long_click_subscribe(BUTTON_ID_UP, 500, long_up_click_handler, NULL);
 }
 
+static void timeline_layer_update_callback(Layer *me, GContext *ctx) {
+  graphics_context_set_fill_color(ctx, GColorWhite);
+  graphics_context_set_stroke_color(ctx, GColorWhite);
+  TOOL_voDrawTimeline(ctx, 4*60, "USFACELIFT");
+}
+
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
+  timeline_layer = layer_create(GRect(0, 0, bounds.size.w, 50));
+  layer_set_update_proc(timeline_layer, timeline_layer_update_callback);
+  layer_add_child(window_layer, timeline_layer);
 
-  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });
-  TOOL_editTextLayer(text_layer, "Press any key", GTextAlignmentCenter);
+  text_layer = text_layer_create((GRect) ConstantGRect(0,72,bounds.size.w, 20));
+  TOOL_editTextLayer(text_layer, "Press any key", GColorWhite, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 }
 
@@ -36,6 +48,7 @@ static void window_unload(Window *window) {
 
 static void init(void) {
   window = window_create();
+  window_set_fullscreen(window, true);
   window_set_click_config_provider(window, click_config_provider);
   window_set_window_handlers(window, (WindowHandlers) {
     .load = window_load,
@@ -43,6 +56,7 @@ static void init(void) {
   });
   const bool animated = true;
   window_stack_push(window, animated);
+  window_set_background_color(window, GColorBlack);
 }
 
 static void deinit(void) {

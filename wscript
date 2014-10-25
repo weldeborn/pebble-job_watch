@@ -20,7 +20,8 @@ def build(ctx):
     ctx.load('pebble_sdk')
 
     ctx.pbl_program(source=ctx.path.ant_glob('src/**/*.c'),
-                    target='pebble-app.elf')
+    				includes=['inc'],
+   			        target='pebble-app.elf')
 
     if os.path.exists('worker_src'):
         ctx.pbl_worker(source=ctx.path.ant_glob('worker_src/**/*.c'),
