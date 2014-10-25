@@ -1,4 +1,6 @@
 #include <pebble.h>
+#include <tool.h>
+#include <job_watch.h>
 
 static Window *window;
 static TextLayer *text_layer;
@@ -22,9 +24,9 @@ static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
+
   text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });
-  text_layer_set_text(text_layer, "Press a button");
-  text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
+  TOOL_editTextLayer(text_layer, "Press any key", GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 }
 
